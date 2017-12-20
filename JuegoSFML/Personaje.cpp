@@ -2,6 +2,12 @@
 #include "Personaje.h"
 
 
+void Personaje::mover(int nuevax, int nuevay)
+{
+	x = x + nuevax;
+	y = y + nuevay;
+}
+
 Personaje::Personaje()
 {
 	x = 0;

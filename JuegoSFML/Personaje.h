@@ -9,6 +9,10 @@ private:
 	sf::Texture texture;
 	sf::Sprite sprite;
 public:
+
+	// Métodos
+	void mover(int nuevax, int nuevay);
+
 	// Constructores
 	Personaje();
 	Personaje(std::string Nombre);
