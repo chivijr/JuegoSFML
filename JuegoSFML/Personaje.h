@@ -2,20 +2,24 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-class textura
+class Personaje
 {
 private:
 	int x, y;
 	sf::Texture texture;
+	sf::Sprite sprite;
 public:
 	// Constructores
-	textura();
-	textura(std::string Nombre);
-	textura(std::string Nombre, int posx, int posy);
+	Personaje();
+	Personaje(std::string Nombre);
+	Personaje(std::string Nombre, int posx, int posy);
 
 	// Getter & Setter
 	sf::Texture getTextura();
 	bool setTextura(std::string Nombre);
+
+	sf::Sprite getSprite();
+	void setSprite(sf::Texture Personaje);
 
 	bool setX(int &x);
 	int getX();
@@ -24,5 +28,5 @@ public:
 	int getY();
 
 	// Destructor
-	~textura();
+	~Personaje();
 };

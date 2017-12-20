@@ -21,10 +21,10 @@
     <ClInclude Include="targetver.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="textura.h">
+    <ClInclude Include="Constantes.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Constantes.h">
+    <ClInclude Include="Personaje.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
@@ -35,7 +35,7 @@
     <ClCompile Include="JuegoSFML.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="textura.cpp">
+    <ClCompile Include="Personaje.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
