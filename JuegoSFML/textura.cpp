@@ -13,10 +13,11 @@ textura::textura(std::string Nombre)
 {
 	x = 0;
 	y = 0;
-	if (!texture.loadFromFile(Nombre))
+	/*if (!texture.loadFromFile(Nombre))
 	{
 		std::cout << "Error al asignar la imagen: " << Nombre << std::endl;
-	}
+	}*/
+	setTextura(Nombre);
 }
 
 textura::textura(std::string Nombre, int posx, int posy)
@@ -36,8 +37,7 @@ sf::Texture textura::getTextura()
 
 bool textura::setTextura(std::string Nombre)
 {
-	texture.loadFromFile(Nombre);
-	return true;
+	return texture.loadFromFile(Nombre);
 }
 
 
