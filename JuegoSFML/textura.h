@@ -15,7 +15,7 @@ public:
 
 	// Getter & Setter
 	sf::Texture getTextura();
-	bool setTextura(sf::Texture &text);
+	bool setTextura(std::string Nombre);
 
 	bool setX(int &x);
 	int getX();

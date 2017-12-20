@@ -1,2 +1,2 @@
 #pragma once
-#define logdebug true
+#define logdebug false

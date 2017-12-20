@@ -34,9 +34,10 @@ sf::Texture textura::getTextura()
 	return sf::Texture();
 }
 
-bool textura::setTextura(sf::Texture &text)
+bool textura::setTextura(std::string Nombre)
 {
-	texture = &text;
+	texture.loadFromFile(Nombre);
+	return true;
 }
 
 
