@@ -6,12 +6,18 @@ class Personaje
 {
 private:
 	int x, y;
+	int aceleracion;
 	sf::Texture texture;
 	sf::Sprite sprite;
+	bool moverArriba;
+	bool moverAbajo;
+	bool moverDerecha;
+	bool moverIzquierda;
 public:
-
+	void calcularNuevaPosicion();
 	// Métodos
 	void mover(int nuevax, int nuevay);
+	void escalar(float nuevoAlto, float nuevoAncho);
 
 	// Constructores
 	Personaje();
@@ -25,11 +31,26 @@ public:
 	sf::Sprite getSprite();
 	void setSprite(sf::Texture Personaje);
 
-	bool setX(int &x);
+	bool setX(int x);
 	int getX();
 
-	bool setY(int &y);
+	bool setY(int y);
 	int getY();
+
+	void setMoverArriba();
+	void setMoverAbajo();
+	void setMoverDerecha();
+	void setMoverIzquierda();
+
+	void removeMoverArriba();
+	void removeMoverAbajo();
+	void removeMoverDerecha();
+	void removeMoverIzquierda();
+
+	bool isMoviendoArriba();
+	bool isMoviendoAbajo();
+	bool isMoviendoIzquierda();
+	bool isMoviendoDerecha();
 
 	// Destructor
 	~Personaje();
