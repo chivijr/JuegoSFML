@@ -1,3 +1,3 @@
 #pragma once
 #define logdebug false
-#define cAceleracion 5
+#define cAceleracion 1

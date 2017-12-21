@@ -31,11 +31,11 @@ public:
 	sf::Sprite getSprite();
 	void setSprite(sf::Texture Personaje);
 
-	bool setX(int x);
-	int getX();
+	bool setX(const int& x);
+	int& getX();
 
-	bool setY(int y);
-	int getY();
+	bool setY(const int& y);
+	int& getY();
 
 	void setMoverArriba();
 	void setMoverAbajo();

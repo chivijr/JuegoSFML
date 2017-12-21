@@ -4,17 +4,20 @@
 
 void Personaje::calcularNuevaPosicion()
 {
-	int nuevay = getY(), nuevax = getX();
-
-	if (isMoviendoAbajo()) { nuevay += aceleracion; }
-	if (isMoviendoArriba()) { nuevay -= aceleracion; }
-	if (isMoviendoDerecha()) { nuevax += aceleracion; }
-	if (isMoviendoIzquierda()) { nuevax -= aceleracion; }
-	setX(nuevax);
-	setY(nuevay);
-	mover(nuevax, nuevay);
-
+	if (isMoviendoAbajo()) { 
+		mover(0, aceleracion);
+	}
+	if (isMoviendoArriba()) { 
+		mover(0, -aceleracion); 
+	}
+	if (isMoviendoDerecha()) { 
+		mover(aceleracion,0); 
+	}
+	if (isMoviendoIzquierda()) { 
+		mover(-aceleracion,0); 
+	}
 }
+
 void Personaje::mover(int nuevax, int nuevay)
 {
 	sprite.move(nuevax, nuevay);
@@ -40,6 +43,10 @@ Personaje::Personaje(std::string Nombre)
 	aceleracion = cAceleracion;
 	setTextura(Nombre);
 	setSprite(texture);
+	removeMoverArriba();
+	removeMoverAbajo();
+	removeMoverDerecha();
+	removeMoverIzquierda();
 	escalar(2, 2);
 }
 
@@ -50,6 +57,11 @@ Personaje::Personaje(std::string Nombre, int posx, int posy)
 	aceleracion = cAceleracion;
 	setTextura(Nombre);
 	setSprite(texture);
+	removeMoverArriba();
+	removeMoverAbajo();
+	removeMoverDerecha();
+	removeMoverIzquierda();
+	escalar(2, 2);
 }
 
 sf::Texture Personaje::getTextura()
@@ -76,24 +88,24 @@ Personaje::~Personaje()
 {
 }
 
- bool Personaje::setX(int nuevax)
+ bool Personaje::setX(const int& nuevax)
 {
 	 x = nuevax;
 	 return true;
 }
 
- bool Personaje::setY(int nuevay)
+ bool Personaje::setY(const int& nuevay)
  {
 	 y = nuevay;
 	 return true;
  }
 
-int Personaje::getX() 
+int& Personaje::getX() 
 {
 	return x;
 }
 
-int Personaje::getY()
+int& Personaje::getY()
 {
 	return y;
 }
