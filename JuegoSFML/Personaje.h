@@ -1,4 +1,7 @@
 #pragma once
+#ifndef PERSONAJE_H
+#define PERSONAJE_H
+
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
@@ -55,3 +58,4 @@ public:
 	// Destructor
 	~Personaje();
 };
+#endif
