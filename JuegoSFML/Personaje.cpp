@@ -40,12 +40,13 @@ void Personaje::escalar(float nuevoAlto, float nuevoAncho)
 
 void Personaje::flip() {
 	sprite.setTextureRect(sf::IntRect(ancho, 0, -ancho, alto));
+	//sprite.setTextureRect(sf::IntRect(0, alto, ancho, -alto));
 	flipped = true;
 }
 
 void Personaje::unflip() {
-	sprite.setTextureRect(sf::IntRect(0, 0, ancho, alto));
-	flipped = true;
+ 	sprite.setTextureRect(sf::IntRect(0, 0, ancho, alto));
+	flipped = false;
 }
 
 void Personaje::swapflip() {
@@ -57,20 +58,6 @@ void Personaje::swapflip() {
 		setFlipped(false);
 	}
 }
-
-/*Personaje::Personaje()
-{
-	posx = 0;
-	posy = 0;
-	ancho = 1;
-	alto = 1;
-	removeMoverArriba();
-	removeMoverAbajo();
-	removeMoverDerecha();
-	removeMoverIzquierda();
-	aceleracion = cAceleracion;
-	texture.~Texture();
-}*/
 
 Personaje::Personaje(std::string Nombre)
 {
@@ -92,6 +79,8 @@ Personaje::Personaje(std::string Nombre)
 Personaje::Personaje(std::string Nombre, int posxinicial, int posyinicial)
 {
 	mover(posxinicial, posyinicial);
+	setX(posxinicial);
+	setY(posyinicial);
 	aceleracion = cAceleracion;
 	setTextura(Nombre);
 	setSprite(texture);
@@ -101,23 +90,24 @@ Personaje::Personaje(std::string Nombre, int posxinicial, int posyinicial)
 	removeMoverAbajo();
 	removeMoverDerecha();
 	removeMoverIzquierda();
-	escalar(2, 2);
 	flipped = false;
 }
 
 Personaje::Personaje(std::string Nombre, int posxinicial, int posyinicial, int anchoinicial, int altoinicial)
 {
 	mover(posxinicial, posyinicial);
-	setAncho(anchoinicial);
-	setAlto(altoinicial);
+	setX(posxinicial);
+	setY(posyinicial);
 	aceleracion = cAceleracion;
 	setTextura(Nombre);
 	setSprite(texture);
+	escalar(altoinicial, anchoinicial);
+	setAncho(sprite.getGlobalBounds().width);
+	setAlto(sprite.getGlobalBounds().height);
 	removeMoverArriba();
 	removeMoverAbajo();
 	removeMoverDerecha();
 	removeMoverIzquierda();
-	escalar(2, 2);
 	flipped = false;
 }
 
