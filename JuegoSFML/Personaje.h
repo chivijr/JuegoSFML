@@ -8,7 +8,8 @@
 class Personaje
 {
 private:
-	int x, y;
+	int posx, posy;
+	int ancho, alto;
 	int aceleracion;
 	sf::Texture texture;
 	sf::Sprite sprite;
@@ -16,16 +17,23 @@ private:
 	bool moverAbajo;
 	bool moverDerecha;
 	bool moverIzquierda;
+	bool flipped;
 public:
 	void calcularNuevaPosicion();
 	// Métodos
 	void mover(int nuevax, int nuevay);
+	void moverX(int nuevax);
+	void moverY(int nuevay);
 	void escalar(float nuevoAlto, float nuevoAncho);
+	void flip();
+	void unflip();
+	void swapflip();
 
 	// Constructores
-	Personaje();
+	//Personaje();
 	Personaje(std::string Nombre);
-	Personaje(std::string Nombre, int posx, int posy);
+	Personaje(std::string Nombre, int posxinicial, int posyinicial);
+	Personaje(std::string Nombre, int posxinicial, int posyinicial, int anchoinicial, int altoincial);
 
 	// Getter & Setter
 	sf::Texture getTextura();
@@ -34,12 +42,21 @@ public:
 	sf::Sprite getSprite();
 	void setSprite(sf::Texture Personaje);
 
-	bool setX(const int& x);
+	void setX(const int& nuevax);
 	int& getX();
 
-	bool setY(const int& y);
+	void setY(const int& nuevay);
 	int& getY();
 
+	void setAncho(const int& nuevoancho);
+	int& getAncho();
+
+	void setAlto(const int& nuevoalto);
+	int& getAlto();
+
+	void setFlipped(const bool& flipeado);
+	bool& getFlipped();
+	
 	void setMoverArriba();
 	void setMoverAbajo();
 	void setMoverDerecha();
