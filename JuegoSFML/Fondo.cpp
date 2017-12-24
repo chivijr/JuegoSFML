@@ -28,8 +28,7 @@ sf::Texture Fondo::getTextura()
 
 void Fondo::setTextura(std::string Nombre)
 {
-	if (!texture.loadFromFile(Nombre))
-		exit;
+	if (!texture.loadFromFile(Nombre))	exit;
 	texture.setRepeated(true);
 }
 
