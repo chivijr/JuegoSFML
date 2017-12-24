@@ -41,7 +41,7 @@ sf::Sprite Fondo::getSprite()
 void Fondo::setSprite(sf::Texture Fondo)
 {
 	sprite.setTexture(texture);
-	sprite.setTextureRect(sf::IntRect(0, 0, anchoPantalla, altoPantalla));
+	//sprite.setTextureRect(sf::IntRect(0, 0, anchoPantalla, altoPantalla));
 }
 
 void Fondo::escalarAbsoluto(float alto, float ancho) 
@@ -50,10 +50,6 @@ void Fondo::escalarAbsoluto(float alto, float ancho)
 }
 
 void Fondo::fitWindow() {
-	// Para adaptarlo perfectamente.
-	//sprite.setScale(1 / sprite.getGlobalBounds().width * anchoPantalla, 1 / sprite.getGlobalBounds().height * altoPantalla);
-
 	// Para adaptar el alto y que el ancho se vaya repitiendo.
-	//sprite.setScale(1 / sprite.getGlobalBounds().width * anchoPantalla, 1 / sprite.getGlobalBounds().height * altoPantalla);
-	sprite.setScale(1, 2);
+	sprite.setScale(anchoPantalla / sprite.getGlobalBounds().width , altoPantalla / sprite.getGlobalBounds().height);
 }
