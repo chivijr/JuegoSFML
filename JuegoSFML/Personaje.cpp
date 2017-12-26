@@ -2,21 +2,96 @@
 #include "Personaje.h"
 #include "Constantes.h"
 
+Personaje::Personaje(Mundo& World, std::string Nombre)
+{
+	posx = 0;
+	posy = 0;
+	aceleracion = cAceleracion;
+	setFisicaSprite(World);
+	setTextura(Nombre);
+	setSprite(texture);
+	setAncho(sprite.getGlobalBounds().width);
+	setAlto(sprite.getGlobalBounds().height);
+	removeMoverArriba();
+	removeMoverAbajo();
+	removeMoverDerecha();
+	removeMoverIzquierda();
+	escalar(2, 2);
+	flipped = false;
+}
+
+Personaje::Personaje(Mundo& World, std::string Nombre, int posxinicial, int posyinicial)
+{
+	mover(posxinicial, posyinicial);
+	setX(posxinicial);
+	setY(posyinicial);
+	aceleracion = cAceleracion;
+	setFisicaSprite(World);
+	setTextura(Nombre);
+	setSprite(texture);
+	setAncho(sprite.getGlobalBounds().width);
+	setAlto(sprite.getGlobalBounds().height);
+	removeMoverArriba();
+	removeMoverAbajo();
+	removeMoverDerecha();
+	removeMoverIzquierda();
+	flipped = false;
+}
+
+Personaje::Personaje(Mundo& World, std::string Nombre, int posxinicial, int posyinicial, int anchoinicial, int altoinicial)
+{
+	mover(posxinicial, posyinicial);
+	setX(posxinicial);
+	setY(posyinicial);
+	aceleracion = cAceleracion;
+	setFisicaSprite(World);
+	setTextura(Nombre);
+	setSprite(texture);
+	escalar(altoinicial, anchoinicial);
+	setAncho(sprite.getGlobalBounds().width);
+	setAlto(sprite.getGlobalBounds().height);
+	removeMoverArriba();
+	removeMoverAbajo();
+	removeMoverDerecha();
+	removeMoverIzquierda();
+	flipped = false;
+}
+
+void Personaje::setFisicaSprite(Mundo& World) {
+	b2BodyDef BodyDef;
+	BodyDef.position = b2Vec2(getX() / SCALE, getY() / SCALE);
+	BodyDef.type = b2_dynamicBody;
+	b2Body* Body = World.getMundo()->CreateBody(&BodyDef);
+
+	b2PolygonShape Shape;
+	Shape.SetAsBox((32.f / 2) / SCALE, (32.f / 2) / SCALE);
+	b2FixtureDef FixtureDef;
+	FixtureDef.density = 1.f;
+	FixtureDef.friction = 0.7f;
+	FixtureDef.shape = &Shape;
+	Body->CreateFixture(&FixtureDef);
+}
 void Personaje::calcularNuevaPosicion()
 {
-	if (isMoviendoAbajo()) { 
+	if (isMoviendoAbajo()) {
 		mover(0, aceleracion);
 	}
-	if (isMoviendoArriba()) { 
-		mover(0, -aceleracion); 
+	if (isMoviendoArriba()) {
+		mover(0, -aceleracion);
 	}
-	if (isMoviendoDerecha()) { 
-		mover(aceleracion,0); 
+	if (isMoviendoDerecha()) {
+		mover(aceleracion, 0);
 	}
-	if (isMoviendoIzquierda()) { 
-		mover(-aceleracion,0); 
+	if (isMoviendoIzquierda()) {
+		mover(-aceleracion, 0);
 	}
 }
+
+/*void Personaje::saltar() {
+	b2Vec2 vel = body->GetLinearVelocity();
+	vel.y = 10;//upwards - don't change x velocity
+	body->SetLinearVelocity(vel);
+}*/
 
 void Personaje::mover(int nuevax, int nuevay)
 {
@@ -25,12 +100,12 @@ void Personaje::mover(int nuevax, int nuevay)
 
 void Personaje::moverX(int nuevax)
 {
-	sprite.move(nuevax,posy);
+	sprite.move(nuevax, posy);
 }
 
 void Personaje::moverY(int nuevay)
 {
-	sprite.move(posx,nuevay);
+	sprite.move(posx, nuevay);
 }
 
 void Personaje::escalar(float nuevoAlto, float nuevoAncho)
@@ -45,7 +120,7 @@ void Personaje::flip() {
 }
 
 void Personaje::unflip() {
- 	sprite.setTextureRect(sf::IntRect(0, 0, ancho, alto));
+	sprite.setTextureRect(sf::IntRect(0, 0, ancho, alto));
 	flipped = false;
 }
 
@@ -53,63 +128,13 @@ void Personaje::swapflip() {
 	if (!flipped) {
 		flip();
 		setFlipped(true);
-	} else {
+	}
+	else {
 		unflip();
 		setFlipped(false);
 	}
 }
 
-Personaje::Personaje(std::string Nombre)
-{
-	posx = 0;
-	posy = 0;
-	aceleracion = cAceleracion;
-	setTextura(Nombre);
-	setSprite(texture);
-	setAncho(sprite.getGlobalBounds().width);
-	setAlto(sprite.getGlobalBounds().height);
-	removeMoverArriba();
-	removeMoverAbajo();
-	removeMoverDerecha();
-	removeMoverIzquierda();
-	escalar(2, 2);
-	flipped = false;
-}
-
-Personaje::Personaje(std::string Nombre, int posxinicial, int posyinicial)
-{
-	mover(posxinicial, posyinicial);
-	setX(posxinicial);
-	setY(posyinicial);
-	aceleracion = cAceleracion;
-	setTextura(Nombre);
-	setSprite(texture);
-	setAncho(sprite.getGlobalBounds().width);
-	setAlto(sprite.getGlobalBounds().height);
-	removeMoverArriba();
-	removeMoverAbajo();
-	removeMoverDerecha();
-	removeMoverIzquierda();
-	flipped = false;
-}
-
-Personaje::Personaje(std::string Nombre, int posxinicial, int posyinicial, int anchoinicial, int altoinicial)
-{
-	mover(posxinicial, posyinicial);
-	setX(posxinicial);
-	setY(posyinicial);
-	aceleracion = cAceleracion;
-	setTextura(Nombre);
-	setSprite(texture);
-	escalar(altoinicial, anchoinicial);
-	setAncho(sprite.getGlobalBounds().width);
-	setAlto(sprite.getGlobalBounds().height);
-	removeMoverArriba();
-	removeMoverAbajo();
-	removeMoverDerecha();
-	removeMoverIzquierda();
-	flipped = false;
-}
 
 sf::Texture Personaje::getTextura()
 {
@@ -129,6 +154,7 @@ sf::Sprite Personaje::getSprite()
 void Personaje::setSprite(sf::Texture Personaje)
 {
 	sprite.setTexture(texture);
+	//sprite.setOrigin(0,getAlto());
 }
 
 Personaje::~Personaje()
@@ -138,15 +164,15 @@ Personaje::~Personaje()
 
 void Personaje::setX(const int& nuevax)
 {
-	 posx = nuevax;
+	posx = nuevax;
 }
 
- void Personaje::setY(const int& nuevay)
- {
-	 posy = nuevay;
- }
+void Personaje::setY(const int& nuevay)
+{
+	posy = nuevay;
+}
 
-int& Personaje::getX() 
+int& Personaje::getX()
 {
 	return posx;
 }

@@ -32,6 +32,11 @@ void Fondo::setTextura(std::string Nombre)
 	texture.setRepeated(true);
 }
 
+void Fondo::mover(int nuevax, int nuevay)
+{
+	sprite.move(nuevax, nuevay);
+}
+
 sf::Sprite Fondo::getSprite()
 {
 	return sprite;

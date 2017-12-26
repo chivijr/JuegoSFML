@@ -15,6 +15,7 @@ public:
 	void escalarAbsoluto(float alto, float ancho);
 	void fitWindow();
 	void fitWindow(int anchoPantallalocal, int altoPantallalocal);
+	void mover(int nuevax, int nuevay);
 
 	// Constructor y destructor
 	Fondo(std::string Nombre);

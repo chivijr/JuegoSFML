@@ -4,6 +4,8 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "Mundo.h"
+#include <Box2D/Box2D.h>
 
 class Personaje
 {
@@ -13,14 +15,20 @@ private:
 	int aceleracion;
 	sf::Texture texture;
 	sf::Sprite sprite;
+	
 	bool moverArriba;
 	bool moverAbajo;
 	bool moverDerecha;
 	bool moverIzquierda;
 	bool flipped;
+
+
 public:
-	void calcularNuevaPosicion();
-	// Métodos
+	// Métodos del personaje
+	void saltar();
+
+	// Métodos propiedades
+	void setFisicaSprite(Mundo& World);
 	void mover(int nuevax, int nuevay);
 	void moverX(int nuevax);
 	void moverY(int nuevay);
@@ -28,12 +36,12 @@ public:
 	void flip();
 	void unflip();
 	void swapflip();
+	void calcularNuevaPosicion();
 
 	// Constructores
-	//Personaje();
-	Personaje(std::string Nombre);
-	Personaje(std::string Nombre, int posxinicial, int posyinicial);
-	Personaje(std::string Nombre, int posxinicial, int posyinicial, int anchoinicial, int altoincial);
+	Personaje(Mundo& World, std::string Nombre);
+	Personaje(Mundo& World, std::string Nombre, int posxinicial, int posyinicial);
+	Personaje(Mundo& World, std::string Nombre, int posxinicial, int posyinicial, int anchoinicial, int altoincial);
 
 	// Getter & Setter
 	sf::Texture getTextura();
