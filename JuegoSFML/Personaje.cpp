@@ -2,12 +2,11 @@
 #include "Personaje.h"
 #include "Constantes.h"
 
-Personaje::Personaje(Mundo& World, std::string Nombre)
+Personaje::Personaje(std::string Nombre)
 {
 	posx = 0;
 	posy = 0;
 	aceleracion = cAceleracion;
-	setFisicaSprite(World);
 	setTextura(Nombre);
 	setSprite(texture);
 	setAncho(sprite.getGlobalBounds().width);
@@ -20,13 +19,12 @@ Personaje::Personaje(Mundo& World, std::string Nombre)
 	flipped = false;
 }
 
-Personaje::Personaje(Mundo& World, std::string Nombre, int posxinicial, int posyinicial)
+Personaje::Personaje(std::string Nombre, int posxinicial, int posyinicial)
 {
 	mover(posxinicial, posyinicial);
 	setX(posxinicial);
 	setY(posyinicial);
 	aceleracion = cAceleracion;
-	setFisicaSprite(World);
 	setTextura(Nombre);
 	setSprite(texture);
 	setAncho(sprite.getGlobalBounds().width);
@@ -38,13 +36,12 @@ Personaje::Personaje(Mundo& World, std::string Nombre, int posxinicial, int posy
 	flipped = false;
 }
 
-Personaje::Personaje(Mundo& World, std::string Nombre, int posxinicial, int posyinicial, int anchoinicial, int altoinicial)
+Personaje::Personaje(std::string Nombre, int posxinicial, int posyinicial, int anchoinicial, int altoinicial)
 {
 	mover(posxinicial, posyinicial);
 	setX(posxinicial);
 	setY(posyinicial);
 	aceleracion = cAceleracion;
-	setFisicaSprite(World);
 	setTextura(Nombre);
 	setSprite(texture);
 	escalar(altoinicial, anchoinicial);
@@ -57,20 +54,6 @@ Personaje::Personaje(Mundo& World, std::string Nombre, int posxinicial, int posy
 	flipped = false;
 }
 
-void Personaje::setFisicaSprite(Mundo& World) {
-	b2BodyDef BodyDef;
-	BodyDef.position = b2Vec2(getX() / SCALE, getY() / SCALE);
-	BodyDef.type = b2_dynamicBody;
-	b2Body* Body = World.getMundo()->CreateBody(&BodyDef);
-
-	b2PolygonShape Shape;
-	Shape.SetAsBox((32.f / 2) / SCALE, (32.f / 2) / SCALE);
-	b2FixtureDef FixtureDef;
-	FixtureDef.density = 1.f;
-	FixtureDef.friction = 0.7f;
-	FixtureDef.shape = &Shape;
-	Body->CreateFixture(&FixtureDef);
-}
 void Personaje::calcularNuevaPosicion()
 {
 	if (isMoviendoAbajo()) {
@@ -95,17 +78,22 @@ void Personaje::calcularNuevaPosicion()
 
 void Personaje::mover(int nuevax, int nuevay)
 {
-	sprite.move(nuevax, nuevay);
+	//sprite.move(nuevax, nuevay);
+	sprite.setPosition(nuevax, nuevay);
+	setX(nuevax);
+	setY(nuevay);
 }
 
 void Personaje::moverX(int nuevax)
 {
 	sprite.move(nuevax, posy);
+	setX(nuevax);
 }
 
 void Personaje::moverY(int nuevay)
 {
 	sprite.move(posx, nuevay);
+	setY(nuevay);
 }
 
 void Personaje::escalar(float nuevoAlto, float nuevoAncho)

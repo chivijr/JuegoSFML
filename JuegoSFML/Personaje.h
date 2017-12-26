@@ -4,7 +4,6 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include "Mundo.h"
 #include <Box2D/Box2D.h>
 
 class Personaje
@@ -28,7 +27,6 @@ public:
 	void saltar();
 
 	// Métodos propiedades
-	void setFisicaSprite(Mundo& World);
 	void mover(int nuevax, int nuevay);
 	void moverX(int nuevax);
 	void moverY(int nuevay);
@@ -39,9 +37,9 @@ public:
 	void calcularNuevaPosicion();
 
 	// Constructores
-	Personaje(Mundo& World, std::string Nombre);
-	Personaje(Mundo& World, std::string Nombre, int posxinicial, int posyinicial);
-	Personaje(Mundo& World, std::string Nombre, int posxinicial, int posyinicial, int anchoinicial, int altoincial);
+	Personaje(std::string Nombre);
+	Personaje(std::string Nombre, int posxinicial, int posyinicial);
+	Personaje(std::string Nombre, int posxinicial, int posyinicial, int anchoinicial, int altoincial);
 
 	// Getter & Setter
 	sf::Texture getTextura();
