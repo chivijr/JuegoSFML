@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Personaje.h"
-#include "Constantes.h"
 
 Personaje::Personaje(std::string Nombre)
 {
@@ -56,18 +55,49 @@ Personaje::Personaje(std::string Nombre, int posxinicial, int posyinicial, int a
 
 void Personaje::calcularNuevaPosicion()
 {
+	mover(SCALE * Body->GetPosition().x, SCALE * Body->GetPosition().y);
 	if (isMoviendoAbajo()) {
-		mover(0, aceleracion);
+		//moverY(aceleracion);
 	}
 	if (isMoviendoArriba()) {
-		mover(0, -aceleracion);
+		//moverY(-aceleracion);
 	}
+
+	b2Vec2 vel = Body->GetLinearVelocity();
 	if (isMoviendoDerecha()) {
-		mover(aceleracion, 0);
+		if (vel.x + aceleracion > cMaximaVelocidad) {
+			velChange = cMaximaVelocidad;
+		} else {
+			velChange = vel.x + aceleracion;
+		}
+		impulse = Body->GetMass() * velChange; //disregard time factor
+		Body->ApplyLinearImpulse(b2Vec2(impulse, 0), Body->GetWorldCenter(),true);
+	} else if (vel.x > 0) {
+		velChange = vel.x - cDeceleracion;
+		impulse = Body->GetMass() * velChange; //disregard time factor
+		Body->ApplyLinearImpulse(b2Vec2(0, 0), Body->GetWorldCenter(), true);
 	}
-	if (isMoviendoIzquierda()) {
-		mover(-aceleracion, 0);
-	}
+	/*if (isMoviendoIzquierda()) {
+		float desiredVel = 0;
+		desiredVel = -cAceleracion;
+		float velChange = desiredVel - vel.x;
+		float impulse = Body->GetMass() * velChange; //disregard time factor
+		Body->ApplyLinearImpulse(b2Vec2(impulse, 0), Body->GetWorldCenter(), true);
+	}*/
+}
+
+void Personaje::setFisicaSprite(b2World& localWorld)
+{
+	BodyDef.position = b2Vec2(getX(),getY());
+	BodyDef.type = b2_dynamicBody;
+	Body = localWorld.CreateBody(&BodyDef);
+
+	Shape.SetAsBox((32.f / 2) / SCALE, (32.f / 2) / SCALE);
+	
+	FixtureDef.density = 1.f;
+	FixtureDef.friction = 5.0f;
+	FixtureDef.shape = &Shape;
+	Body->CreateFixture(&FixtureDef);
 }
 
 /*void Personaje::saltar() {
@@ -78,7 +108,6 @@ void Personaje::calcularNuevaPosicion()
 
 void Personaje::mover(int nuevax, int nuevay)
 {
-	//sprite.move(nuevax, nuevay);
 	sprite.setPosition(nuevax, nuevay);
 	setX(nuevax);
 	setY(nuevay);
@@ -86,13 +115,13 @@ void Personaje::mover(int nuevax, int nuevay)
 
 void Personaje::moverX(int nuevax)
 {
-	sprite.move(nuevax, posy);
+	sprite.move(nuevax, getY());
 	setX(nuevax);
 }
 
 void Personaje::moverY(int nuevay)
 {
-	sprite.move(posx, nuevay);
+	sprite.move(getX(), nuevay);
 	setY(nuevay);
 }
 

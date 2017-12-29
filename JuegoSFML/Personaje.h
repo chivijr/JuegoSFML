@@ -5,16 +5,27 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <Box2D/Box2D.h>
+#include "Constantes.h"
 
 class Personaje
 {
 private:
+	// Gráficos
 	int posx, posy;
 	int ancho, alto;
 	int aceleracion;
 	sf::Texture texture;
 	sf::Sprite sprite;
-	
+
+	// Física
+	b2BodyDef BodyDef;
+	b2Body* Body;
+	b2PolygonShape Shape;
+	b2FixtureDef FixtureDef;
+	float velChange;
+	float impulse;
+
+	// Estado	
 	bool moverArriba;
 	bool moverAbajo;
 	bool moverDerecha;
@@ -35,6 +46,7 @@ public:
 	void unflip();
 	void swapflip();
 	void calcularNuevaPosicion();
+	void setFisicaSprite(b2World& localWorld);
 
 	// Constructores
 	Personaje(std::string Nombre);

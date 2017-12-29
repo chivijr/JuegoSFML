@@ -1,6 +1,8 @@
 #pragma once
 #define logdebug false
-#define cAceleracion 5
+#define cAceleracion 50
+#define cDeceleracion 50
+#define cMaximaVelocidad 100
 #define altoPantalla 600
 #define anchoPantalla altoPantalla*1.33
 #define tituloPantalla "Juego"
