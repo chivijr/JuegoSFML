@@ -13,7 +13,6 @@ private:
 	// Gráficos
 	int posx, posy;
 	int ancho, alto;
-	int aceleracion;
 	sf::Texture texture;
 	sf::Sprite sprite;
 
@@ -22,8 +21,10 @@ private:
 	b2Body* Body;
 	b2PolygonShape Shape;
 	b2FixtureDef FixtureDef;
-	float velChange;
-	float impulse;
+	b2Vec2 momentum;
+	float aceleracion;
+	float deceleracion;
+	b2Vec2 velocidad;
 
 	// Estado	
 	bool moverArriba;

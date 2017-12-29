@@ -1,11 +1,14 @@
 #include "stdafx.h"
 #include "Personaje.h"
 
-Personaje::Personaje(std::string Nombre)
+Personaje::Personaje(std::string Nombre) :
+	momentum(0,0),
+	velocidad(4,0)
 {
 	posx = 0;
 	posy = 0;
 	aceleracion = cAceleracion;
+	deceleracion = cDeceleracion;
 	setTextura(Nombre);
 	setSprite(texture);
 	setAncho(sprite.getGlobalBounds().width);
@@ -18,12 +21,15 @@ Personaje::Personaje(std::string Nombre)
 	flipped = false;
 }
 
-Personaje::Personaje(std::string Nombre, int posxinicial, int posyinicial)
+Personaje::Personaje(std::string Nombre, int posxinicial, int posyinicial) :
+	momentum(0, 0),
+	velocidad(4, 0)
 {
 	mover(posxinicial, posyinicial);
 	setX(posxinicial);
 	setY(posyinicial);
 	aceleracion = cAceleracion;
+	deceleracion = cDeceleracion;
 	setTextura(Nombre);
 	setSprite(texture);
 	setAncho(sprite.getGlobalBounds().width);
@@ -35,12 +41,15 @@ Personaje::Personaje(std::string Nombre, int posxinicial, int posyinicial)
 	flipped = false;
 }
 
-Personaje::Personaje(std::string Nombre, int posxinicial, int posyinicial, int anchoinicial, int altoinicial)
+Personaje::Personaje(std::string Nombre, int posxinicial, int posyinicial, int anchoinicial, int altoinicial) :
+	momentum(0, 0),
+	velocidad(4, 0)
 {
 	mover(posxinicial, posyinicial);
 	setX(posxinicial);
 	setY(posyinicial);
 	aceleracion = cAceleracion;
+	deceleracion = cDeceleracion;
 	setTextura(Nombre);
 	setSprite(texture);
 	escalar(altoinicial, anchoinicial);
@@ -55,7 +64,7 @@ Personaje::Personaje(std::string Nombre, int posxinicial, int posyinicial, int a
 
 void Personaje::calcularNuevaPosicion()
 {
-	mover(SCALE * Body->GetPosition().x, SCALE * Body->GetPosition().y);
+	float desiredVelocity = 0;
 	if (isMoviendoAbajo()) {
 		//moverY(aceleracion);
 	}
@@ -63,27 +72,26 @@ void Personaje::calcularNuevaPosicion()
 		//moverY(-aceleracion);
 	}
 
-	b2Vec2 vel = Body->GetLinearVelocity();
-	if (isMoviendoDerecha()) {
-		if (vel.x + aceleracion > cMaximaVelocidad) {
-			velChange = cMaximaVelocidad;
-		} else {
-			velChange = vel.x + aceleracion;
-		}
-		impulse = Body->GetMass() * velChange; //disregard time factor
-		Body->ApplyLinearImpulse(b2Vec2(impulse, 0), Body->GetWorldCenter(),true);
-	} else if (vel.x > 0) {
-		velChange = vel.x - cDeceleracion;
-		impulse = Body->GetMass() * velChange; //disregard time factor
-		Body->ApplyLinearImpulse(b2Vec2(0, 0), Body->GetWorldCenter(), true);
-	}
-	/*if (isMoviendoIzquierda()) {
-		float desiredVel = 0;
-		desiredVel = -cAceleracion;
-		float velChange = desiredVel - vel.x;
-		float impulse = Body->GetMass() * velChange; //disregard time factor
-		Body->ApplyLinearImpulse(b2Vec2(impulse, 0), Body->GetWorldCenter(), true);
-	}*/
+	if ((isMoviendoDerecha() && isMoviendoIzquierda()) || (!isMoviendoDerecha() && !isMoviendoIzquierda())) {
+		desiredVelocity = 0;
+		momentum.x = Body->GetLinearVelocity().x;
+		float velocityChange = desiredVelocity - momentum.x;
+		b2Vec2 impulse(Body->GetMass() * velocityChange, 0);
+		Body->ApplyLinearImpulse(impulse, Body->GetWorldCenter(), true);
+	} else if (isMoviendoDerecha()) {
+		desiredVelocity = aceleracion;
+		momentum.x = Body->GetLinearVelocity().x;
+		float velocityChange = desiredVelocity - momentum.x;
+		b2Vec2 impulse(Body->GetMass() * velocityChange,0);
+		Body->ApplyLinearImpulse(impulse, Body->GetWorldCenter(),true);
+	} else if  (isMoviendoIzquierda()) {
+		desiredVelocity = -aceleracion;
+		momentum.x = Body->GetLinearVelocity().x;
+		float velocityChange = desiredVelocity - momentum.x;
+		b2Vec2 impulse(Body->GetMass() * velocityChange, 0);
+		Body->ApplyLinearImpulse(impulse, Body->GetWorldCenter(), true);
+	} 
+	mover(SCALE * Body->GetPosition().x, SCALE * Body->GetPosition().y);
 }
 
 void Personaje::setFisicaSprite(b2World& localWorld)
@@ -95,7 +103,7 @@ void Personaje::setFisicaSprite(b2World& localWorld)
 	Shape.SetAsBox((32.f / 2) / SCALE, (32.f / 2) / SCALE);
 	
 	FixtureDef.density = 1.f;
-	FixtureDef.friction = 5.0f;
+	FixtureDef.friction = 1.0f;
 	FixtureDef.shape = &Shape;
 	Body->CreateFixture(&FixtureDef);
 }

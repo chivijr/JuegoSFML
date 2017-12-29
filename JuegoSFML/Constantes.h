@@ -1,7 +1,7 @@
 #pragma once
 #define logdebug false
-#define cAceleracion 50
-#define cDeceleracion 50
+#define cAceleracion 50.0f
+#define cDeceleracion 50.0f
 #define cMaximaVelocidad 100
 #define altoPantalla 600
 #define anchoPantalla altoPantalla*1.33
@@ -13,3 +13,4 @@
 
 //Variables Box2D
 #define SCALE 2
+#define cGravity 9.8f
