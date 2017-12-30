@@ -60,6 +60,7 @@ Personaje::Personaje(std::string Nombre, int posxinicial, int posyinicial, int a
 	escalar(altoinicial, anchoinicial);
 	setAncho(sprite.getGlobalBounds().width);
 	setAlto(sprite.getGlobalBounds().height);
+	sprite.setOrigin({ sprite.getLocalBounds().width / 2, 0 });
 	removeMoverArriba();
 	removeMoverAbajo();
 	removeMoverDerecha();
@@ -87,13 +88,13 @@ void Personaje::calcularNuevaPosicion()
 		b2Vec2 impulse(Body->GetMass() * velocityChange, 0);
 		Body->ApplyLinearImpulse(impulse, Body->GetWorldCenter(), true);
 	} else if (isMoviendoDerecha()) {
-		//unflip();
+		unflip();
 		desiredVelocity = aceleracion;
 		float velocityChange = desiredVelocity - momentum.x;
 		b2Vec2 impulse(Body->GetMass() * velocityChange,0);
 		Body->ApplyLinearImpulse(impulse, Body->GetWorldCenter(), true);
 	} else if  (isMoviendoIzquierda()) {
-		//flip();
+		flip();
 		desiredVelocity = -aceleracion;
 		float velocityChange = desiredVelocity - momentum.x;
 		b2Vec2 impulse(Body->GetMass() * velocityChange, 0);
@@ -108,7 +109,6 @@ void Personaje::calcularNuevaPosicion()
 
 	}
 	mover(SCALE * Body->GetPosition().x, SCALE * Body->GetPosition().y);
-	std::cout << "Y: " << Body->GetPosition().y << std::endl;
 }
 
 void Personaje::setFisicaSprite(b2World& localWorld) {
@@ -154,13 +154,17 @@ void Personaje::escalar(float nuevoAlto, float nuevoAncho) {
 }
 
 void Personaje::flip() {
-	//sprite.setTextureRect(sf::IntRect(ancho, 0, -ancho, alto));
-	flipped = true;
+	if (!flipped) {
+		sprite.setScale({ -2, 2});
+		this->flipped = true;
+	}
 }
 
 void Personaje::unflip() {
-	//sprite.setTextureRect(sf::IntRect(0, 0, ancho, alto));
-	flipped = false;
+	if (flipped) {
+		sprite.setScale({ 2, 2 });
+		this->flipped = false;
+	}
 }
 
 void Personaje::swapflip() {
