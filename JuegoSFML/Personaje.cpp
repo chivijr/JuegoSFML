@@ -9,6 +9,7 @@ Personaje::Personaje(std::string Nombre) :
 	posy = 0;
 	aceleracion = cAceleracion;
 	deceleracion = cDeceleracion;
+	m_contacting = 0;
 	setTextura(Nombre);
 	setSprite(texture);
 	setAncho(sprite.getGlobalBounds().width);
@@ -17,6 +18,7 @@ Personaje::Personaje(std::string Nombre) :
 	removeMoverAbajo();
 	removeMoverDerecha();
 	removeMoverIzquierda();
+	removeSaltando();
 	escalar(2, 2);
 	flipped = false;
 }
@@ -30,6 +32,7 @@ Personaje::Personaje(std::string Nombre, int posxinicial, int posyinicial) :
 	setY(posyinicial);
 	aceleracion = cAceleracion;
 	deceleracion = cDeceleracion;
+	m_contacting = 0;
 	setTextura(Nombre);
 	setSprite(texture);
 	setAncho(sprite.getGlobalBounds().width);
@@ -38,6 +41,7 @@ Personaje::Personaje(std::string Nombre, int posxinicial, int posyinicial) :
 	removeMoverAbajo();
 	removeMoverDerecha();
 	removeMoverIzquierda();
+	removeSaltando();
 	flipped = false;
 }
 
@@ -50,6 +54,7 @@ Personaje::Personaje(std::string Nombre, int posxinicial, int posyinicial, int a
 	setY(posyinicial);
 	aceleracion = cAceleracion;
 	deceleracion = cDeceleracion;
+	m_contacting = 0;
 	setTextura(Nombre);
 	setSprite(texture);
 	escalar(altoinicial, anchoinicial);
@@ -59,6 +64,7 @@ Personaje::Personaje(std::string Nombre, int posxinicial, int posyinicial, int a
 	removeMoverAbajo();
 	removeMoverDerecha();
 	removeMoverIzquierda();
+	removeSaltando();
 	flipped = false;
 }
 
@@ -71,26 +77,34 @@ void Personaje::calcularNuevaPosicion()
 	if (isMoviendoArriba()) {
 		//moverY(-aceleracion);
 	}
-
+	
+	// Movimiento izquierda y derecha
+	momentum.x = Body->GetLinearVelocity().x;
+	// Si no se está moviendo o si está pulsando los dos lados a la vez.
 	if ((isMoviendoDerecha() && isMoviendoIzquierda()) || (!isMoviendoDerecha() && !isMoviendoIzquierda())) {
 		desiredVelocity = 0;
-		momentum.x = Body->GetLinearVelocity().x;
 		float velocityChange = desiredVelocity - momentum.x;
 		b2Vec2 impulse(Body->GetMass() * velocityChange, 0);
 		Body->ApplyLinearImpulse(impulse, Body->GetWorldCenter(), true);
 	} else if (isMoviendoDerecha()) {
 		desiredVelocity = aceleracion;
-		momentum.x = Body->GetLinearVelocity().x;
 		float velocityChange = desiredVelocity - momentum.x;
 		b2Vec2 impulse(Body->GetMass() * velocityChange,0);
-		Body->ApplyLinearImpulse(impulse, Body->GetWorldCenter(),true);
+		Body->ApplyLinearImpulse(impulse, Body->GetWorldCenter(), true);
 	} else if  (isMoviendoIzquierda()) {
 		desiredVelocity = -aceleracion;
-		momentum.x = Body->GetLinearVelocity().x;
 		float velocityChange = desiredVelocity - momentum.x;
 		b2Vec2 impulse(Body->GetMass() * velocityChange, 0);
 		Body->ApplyLinearImpulse(impulse, Body->GetWorldCenter(), true);
 	} 
+
+	if (isSaltando()) {
+		Body->ApplyForce(b2Vec2(0, -500), Body->GetWorldCenter(),true);
+	}
+
+	if (m_contacting > 0) {
+
+	}
 	mover(SCALE * Body->GetPosition().x, SCALE * Body->GetPosition().y);
 }
 
@@ -106,13 +120,14 @@ void Personaje::setFisicaSprite(b2World& localWorld)
 	FixtureDef.friction = 1.0f;
 	FixtureDef.shape = &Shape;
 	Body->CreateFixture(&FixtureDef);
+	Body->SetUserData(this);
 }
 
-/*void Personaje::saltar() {
-	b2Vec2 vel = body->GetLinearVelocity();
-	vel.y = 10;//upwards - don't change x velocity
-	body->SetLinearVelocity(vel);
-}*/
+void Personaje::saltar() {
+	if (!isSaltando()) {
+		setSaltando();
+	}
+}
 
 void Personaje::mover(int nuevax, int nuevay)
 {
@@ -179,7 +194,6 @@ sf::Sprite Personaje::getSprite()
 void Personaje::setSprite(sf::Texture Personaje)
 {
 	sprite.setTexture(texture);
-	//sprite.setOrigin(0,getAlto());
 }
 
 Personaje::~Personaje()
@@ -237,6 +251,27 @@ bool & Personaje::getFlipped()
 	return flipped;
 }
 
+b2Body* Personaje::getBody()
+{
+	return Body;
+}
+
+b2Vec2 Personaje::getLinearVelocity() {
+	return Body->GetLinearVelocity();
+}
+
+void Personaje::startContact() {
+	m_contacting++;
+}
+
+void Personaje::endContact() {
+	m_contacting--;
+}
+
+int Personaje::getEntityType() {
+	return PERSONAJE;
+}
+
 void Personaje::setMoverArriba()
 {
 	moverArriba = true;
@@ -253,10 +288,15 @@ void Personaje::setMoverIzquierda()
 {
 	moverIzquierda = true;
 }
+void Personaje::setSaltando()
+{
+	saltando = true;
+}
 void Personaje::removeMoverArriba()
 {
 	moverArriba = false;
 }
+
 void Personaje::removeMoverAbajo()
 {
 	moverAbajo = false;
@@ -268,6 +308,10 @@ void Personaje::removeMoverDerecha()
 void Personaje::removeMoverIzquierda()
 {
 	moverIzquierda = false;
+}
+void Personaje::removeSaltando()
+{
+	saltando = false;
 }
 bool Personaje::isMoviendoArriba()
 {
@@ -286,3 +330,7 @@ bool Personaje::isMoviendoDerecha()
 	return moverDerecha;
 }
 
+bool Personaje::isSaltando()
+{
+	return saltando;
+}

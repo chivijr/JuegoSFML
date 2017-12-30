@@ -6,8 +6,9 @@
 #include <iostream>
 #include <Box2D/Box2D.h>
 #include "Constantes.h"
+#include "Entidad.h"
 
-class Personaje
+class Personaje : public Entidad
 {
 private:
 	// Gráficos
@@ -25,12 +26,14 @@ private:
 	float aceleracion;
 	float deceleracion;
 	b2Vec2 velocidad;
+	int m_contacting;
 
 	// Estado	
 	bool moverArriba;
 	bool moverAbajo;
 	bool moverDerecha;
 	bool moverIzquierda;
+	bool saltando;
 	bool flipped;
 
 
@@ -75,21 +78,33 @@ public:
 
 	void setFlipped(const bool& flipeado);
 	bool& getFlipped();
+
+	b2Body* getBody();
+
+	b2Vec2 getLinearVelocity();
+
+	void startContact();
+	void endContact();
+
+	int getEntityType();
 	
 	void setMoverArriba();
 	void setMoverAbajo();
 	void setMoverDerecha();
 	void setMoverIzquierda();
+	void setSaltando();
 
 	void removeMoverArriba();
 	void removeMoverAbajo();
 	void removeMoverDerecha();
 	void removeMoverIzquierda();
+	void removeSaltando();
 
 	bool isMoviendoArriba();
 	bool isMoviendoAbajo();
 	bool isMoviendoIzquierda();
 	bool isMoviendoDerecha();
+	bool isSaltando();
 
 	// Destructor
 	~Personaje();
