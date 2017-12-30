@@ -99,7 +99,7 @@ void Personaje::calcularNuevaPosicion()
 	} 
 
 	if (isSaltando()) {
-		Body->ApplyForce(b2Vec2(0, -500), Body->GetWorldCenter(),true);
+		Body->ApplyForce(b2Vec2(0, 500), Body->GetWorldCenter(),true);
 	}
 
 	if (m_contacting > 0) {

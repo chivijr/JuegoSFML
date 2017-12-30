@@ -10,6 +10,7 @@
 #define rutaProfesor "C:/Users/Chivijr/source/repos/JuegoSFMLSolucion/Debug/recursos/sprite/maestro/idle01.png"
 #define rutaFondo "C:/Users/Chivijr/source/repos/JuegoSFMLSolucion/Debug/recursos/bg/montanas.png"
 #define rutaFondo2 "C:/Users/Chivijr/source/repos/JuegoSFMLSolucion/Debug/recursos/bg/suelo.psd"
+#define SUELO 2
 #define PERSONAJE 1
 
 //Variables Box2D
