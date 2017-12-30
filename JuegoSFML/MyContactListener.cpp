@@ -10,7 +10,6 @@ MyContactListener::~MyContactListener()
 {
 }
 
-
 void MyContactListener::BeginContact(b2Contact* contact) {
 	void* bodyUserData = contact->GetFixtureA()->GetBody()->GetUserData();
 	//check if fixture A was a ball

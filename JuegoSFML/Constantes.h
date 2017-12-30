@@ -3,8 +3,8 @@
 #define cAceleracion 75.0f
 #define cDeceleracion 50.0f
 #define cMaximaVelocidad 100
-#define altoPantalla 600
-#define anchoPantalla altoPantalla*1.33
+#define altoPantalla 600.f
+#define anchoPantalla altoPantalla*1.33f
 #define tituloPantalla "Juego"
 #define rutaProtagonista "C:/Users/Chivijr/source/repos/JuegoSFMLSolucion/Debug/recursos/sprite/prota/walk01.png"
 #define rutaProfesor "C:/Users/Chivijr/source/repos/JuegoSFMLSolucion/Debug/recursos/sprite/maestro/idle01.png"

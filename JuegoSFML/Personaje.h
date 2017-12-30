@@ -16,6 +16,7 @@ private:
 	int ancho, alto;
 	sf::Texture texture;
 	sf::Sprite sprite;
+	sf::RectangleShape rectangulo;
 
 	// Física
 	b2BodyDef BodyDef;
@@ -63,6 +64,8 @@ public:
 
 	sf::Sprite getSprite();
 	void setSprite(sf::Texture Personaje);
+
+	sf::RectangleShape getShape();
 
 	void setX(const int& nuevax);
 	int& getX();
