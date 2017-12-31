@@ -17,11 +17,12 @@
 #define cMaximaVelocidad 100
 
 // Constantes del Protagonista
-#define rutaProtagonista "C:/Users/Chivijr/source/repos/JuegoSFMLSolucion/Debug/recursos/sprite/prota/walk.png"
-#define cAltoProtagonista 62
-#define cAnchoProtagonista 53
-#define cEscaladoProtagonista 2
-#define cNumeroSprites 6
+//#define rutaProtagonista "C:/Users/Chivijr/source/repos/JuegoSFMLSolucion/Debug/recursos/sprite/prota/walk.png"
+//#define cAltoProtagonista 62
+//#define cAnchoProtagonista 53
+//#define cEscaladoProtagonista 2
+//#define cNumeroSprites 6
+//#define cVelocidadAnimacion 0.1f
 
 // Constantes de Mario como Protagonista
 //#define cAltoProtagonista 16
@@ -29,6 +30,15 @@
 //#define rutaProtagonista "C:/Users/Chivijr/source/repos/JuegoSFMLSolucion/Debug/recursos/sprite/mario.png"
 //#define cEscaladoProtagonista 5
 //#define cNumeroSprites 3
+//#define cVelocidadAnimacion 0.1f
+
+// Constantes de EarthWormJim como Protagonista
+#define cAltoProtagonista 64
+#define cAnchoProtagonista 52
+#define rutaProtagonista "C:/Users/Chivijr/source/repos/JuegoSFMLSolucion/Debug/recursos/sprite/earthwormjim.png"
+#define cEscaladoProtagonista 3
+#define cNumeroSprites 9
+#define cVelocidadAnimacion 0.2f
 
 static const struct {
 	unsigned int 	 width;

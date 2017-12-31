@@ -91,8 +91,8 @@ void Personaje::calcularNuevaPosicion()
 	} else if (isMoviendoDerecha()) {
 		unflip();
 		this->currentSprite++;
-		if (currentSprite > cNumeroSprites*10-1) currentSprite = 0;
-		int entero = (int)currentSprite / 10;
+		if (currentSprite > cNumeroSprites / cVelocidadAnimacion -1) currentSprite = 0;
+		int entero = (int)currentSprite * cVelocidadAnimacion;
 		sprite.setTextureRect(sf::IntRect(cAnchoProtagonista * entero, 0, cAnchoProtagonista, cAltoProtagonista));
 		desiredVelocity = aceleracion;
 		float velocityChange = desiredVelocity - momentum.x;
@@ -101,8 +101,8 @@ void Personaje::calcularNuevaPosicion()
 	} else if  (isMoviendoIzquierda()) {
 		flip();
 		this->currentSprite++;
-		if (currentSprite > cNumeroSprites * 10 -1) currentSprite = 0;
-		int entero = (int)currentSprite / 10;
+		if (currentSprite > cNumeroSprites / cVelocidadAnimacion -1) currentSprite = 0;
+		int entero = (int)currentSprite * cVelocidadAnimacion;
 		sprite.setTextureRect(sf::IntRect(cAnchoProtagonista * entero, 0, cAnchoProtagonista, cAltoProtagonista));
 		desiredVelocity = -aceleracion;
 		float velocityChange = desiredVelocity - momentum.x;
