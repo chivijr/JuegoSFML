@@ -55,6 +55,7 @@ Personaje::Personaje(std::string Nombre, int posxinicial, int posyinicial, int a
 	aceleracion = cAceleracion;
 	deceleracion = cDeceleracion;
 	m_contacting = 0;
+	currentSprite = 0;
 	setTextura(Nombre);
 	setSprite(texture);
 	escalar(altoinicial, anchoinicial);
@@ -89,12 +90,20 @@ void Personaje::calcularNuevaPosicion()
 		Body->ApplyLinearImpulse(impulse, Body->GetWorldCenter(), true);
 	} else if (isMoviendoDerecha()) {
 		unflip();
+		this->currentSprite++;
+		if (currentSprite > cNumeroSprites*10-1) currentSprite = 0;
+		int entero = (int)currentSprite / 10;
+		sprite.setTextureRect(sf::IntRect(cAnchoProtagonista * entero, 0, cAnchoProtagonista, cAltoProtagonista));
 		desiredVelocity = aceleracion;
 		float velocityChange = desiredVelocity - momentum.x;
 		b2Vec2 impulse(Body->GetMass() * velocityChange,0);
 		Body->ApplyLinearImpulse(impulse, Body->GetWorldCenter(), true);
 	} else if  (isMoviendoIzquierda()) {
 		flip();
+		this->currentSprite++;
+		if (currentSprite > cNumeroSprites * 10 -1) currentSprite = 0;
+		int entero = (int)currentSprite / 10;
+		sprite.setTextureRect(sf::IntRect(cAnchoProtagonista * entero, 0, cAnchoProtagonista, cAltoProtagonista));
 		desiredVelocity = -aceleracion;
 		float velocityChange = desiredVelocity - momentum.x;
 		b2Vec2 impulse(Body->GetMass() * velocityChange, 0);
@@ -108,7 +117,7 @@ void Personaje::calcularNuevaPosicion()
 	if (m_contacting > 0) {
 
 	}
-	mover(SCALE * Body->GetPosition().x, SCALE * Body->GetPosition().y);
+	mover(2 * Body->GetPosition().x, 2 * Body->GetPosition().y);
 }
 
 void Personaje::setFisicaSprite(b2World& localWorld) {
@@ -155,14 +164,14 @@ void Personaje::escalar(float nuevoAlto, float nuevoAncho) {
 
 void Personaje::flip() {
 	if (!flipped) {
-		sprite.setScale({ -2, 2});
+		sprite.setScale({ -cEscaladoProtagonista, cEscaladoProtagonista });
 		this->flipped = true;
 	}
 }
 
 void Personaje::unflip() {
 	if (flipped) {
-		sprite.setScale({ 2, 2 });
+		sprite.setScale({ cEscaladoProtagonista, cEscaladoProtagonista });
 		this->flipped = false;
 	}
 }
@@ -181,7 +190,10 @@ sf::Texture Personaje::getTextura() { return texture; }
 bool Personaje::setTextura(std::string Nombre) { return texture.loadFromFile(Nombre); }
 
 sf::Sprite Personaje::getSprite() {	return sprite; }
-void Personaje::setSprite(sf::Texture Personaje) { sprite.setTexture(texture); }
+void Personaje::setSprite(sf::Texture Personaje) { 
+	sprite.setTexture(texture);
+	sprite.setTextureRect(sf::IntRect(0, 0, cAnchoProtagonista, cAltoProtagonista));
+}
 
 Personaje::~Personaje() {
 	std::cout << "Destruyendo Personaje." << std::endl;
@@ -215,6 +227,7 @@ void Personaje::setMoverAbajo() { moverAbajo = true; }
 void Personaje::setMoverDerecha() {	moverDerecha = true; }
 void Personaje::setMoverIzquierda() { moverIzquierda = true; }
 void Personaje::setSaltando() {	saltando = true; }
+void Personaje::incCurrentSprite() { this->currentSprite++; }
 void Personaje::removeMoverArriba() { moverArriba = false; }
 void Personaje::removeMoverAbajo() { moverAbajo = false; }
 void Personaje::removeMoverDerecha() { moverDerecha = false; }

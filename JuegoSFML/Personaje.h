@@ -17,6 +17,7 @@ private:
 	sf::Texture texture;
 	sf::Sprite sprite;
 	sf::RectangleShape rectangulo;
+	int currentSprite;
 
 	// Física
 	b2BodyDef BodyDef;
@@ -52,6 +53,7 @@ public:
 	void swapflip();
 	void calcularNuevaPosicion();
 	void setFisicaSprite(b2World& localWorld);
+	void incCurrentSprite();
 
 	// Constructores
 	Personaje(std::string Nombre);
