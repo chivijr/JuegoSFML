@@ -13,7 +13,7 @@ private:
 	int posx, posy;
 	int ancho, alto;
 	sf::Texture texture;
-	sf::Sprite sprite;
+	sf::Sprite animatedSprite;
 	sf::RectangleShape rectangulo;
 
 	// Física

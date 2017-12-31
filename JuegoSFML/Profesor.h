@@ -1,15 +1,15 @@
 #pragma once
-#ifndef PERSONAJE_H
-#define PERSONAJE_H
+#ifndef Profesor_H
+#define Profesor_H
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <Box2D/Box2D.h>
 #include "Constantes.h"
 #include "Entidad.h"
-#include "AnimatedSprite.h"
 
-class Personaje : public Entidad
+
+class Profesor : public Entidad
 {
 private:
 	// Gráficos
@@ -18,13 +18,6 @@ private:
 	sf::Texture texture;
 	sf::Sprite animatedSprite;
 	sf::RectangleShape rectangulo;
-
-	// Animación
-	Animation walkingAnimationRight;
-	Animation* currentAnimation = NULL;
-	AnimatedSprite animatedSprite;
-	sf::Clock frameClock;
-	sf::Time frameTime;
 
 	// Física
 	b2BodyDef BodyDef;
@@ -47,7 +40,7 @@ private:
 
 
 public:
-	// Métodos del personaje
+	// Métodos del Profesor
 	void saltar();
 
 	// Métodos propiedades
@@ -62,18 +55,16 @@ public:
 	void setFisicaSprite(b2World& localWorld);
 
 	// Constructores
-	Personaje(std::string Nombre);
-	Personaje(std::string Nombre, int posxinicial, int posyinicial);
-	Personaje(std::string Nombre, int posxinicial, int posyinicial, int anchoinicial, int altoincial);
+	Profesor(std::string Nombre);
+	Profesor(std::string Nombre, int posxinicial, int posyinicial);
+	Profesor(std::string Nombre, int posxinicial, int posyinicial, int anchoinicial, int altoincial);
 
 	// Getter & Setter
 	sf::Texture getTextura();
 	bool setTextura(std::string Nombre);
 
 	sf::Sprite getSprite();
-	void setSprite(sf::Texture Personaje);
-
-	AnimatedSprite getAnimatedSprite();
+	void setSprite(sf::Texture Profesor);
 
 	sf::RectangleShape getShape();
 
@@ -100,7 +91,7 @@ public:
 	void endContact();
 
 	int getEntityType();
-	
+
 	void setMoverArriba();
 	void setMoverAbajo();
 	void setMoverDerecha();
@@ -120,6 +111,6 @@ public:
 	bool isSaltando();
 
 	// Destructor
-	~Personaje();
+	~Profesor();
 };
 #endif

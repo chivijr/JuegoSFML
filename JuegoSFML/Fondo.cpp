@@ -39,7 +39,7 @@ void Fondo::mover(int nuevax, int nuevay)
 
 sf::Sprite Fondo::getSprite()
 {
-	return sprite;
+	return animatedSprite;
 }
 
 void Fondo::setSprite(sf::Texture Fondo)
@@ -55,5 +55,5 @@ void Fondo::escalarAbsoluto(float alto, float ancho)
 
 void Fondo::fitWindow() {
 	// Para adaptar el alto y que el ancho se vaya repitiendo.
-	sprite.setScale(anchoPantalla / sprite.getGlobalBounds().width , altoPantalla / sprite.getGlobalBounds().height);
+	sprite.setScale(anchoPantalla / animatedSprite.getGlobalBounds().width , altoPantalla / animatedSprite.getGlobalBounds().height);
 }

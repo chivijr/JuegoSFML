@@ -37,9 +37,9 @@ int& Suelo::getX()								{ return posx; }
 int& Suelo::getY()								{ return posy; }
 
 bool Suelo::setTextura(std::string Nombre)		{ return texture.loadFromFile(Nombre); }
-void Suelo::setSprite(sf::Texture Personaje)	{ sprite.setTexture(texture); }
+void Suelo::setSprite(sf::Texture Personaje)	{ animatedSprite.setTexture(texture); }
 sf::Texture Suelo::getTextura()					{ return texture; }
-sf::Sprite Suelo::getSprite()					{ return sprite; }
+sf::Sprite Suelo::getSprite()					{ return animatedSprite; }
 
 sf::RectangleShape Suelo::getShape() { return rectangulo; }
 

@@ -9,7 +9,7 @@
 class Fondo {
 private:
 	sf::Texture texture;
-	sf::Sprite sprite;
+	sf::Sprite animatedSprite;
 public:
 	// Métodos
 	void escalarAbsoluto(float alto, float ancho);
