@@ -13,6 +13,7 @@
 
 // Constantes Comunes del protagonista
 #define cAceleracion 75.0f
+#define cAceleracionSalto 20.f
 #define cDeceleracion 50.0f
 #define cMaximaVelocidad 100
 
@@ -46,7 +47,7 @@
 #define rutaProtagonista "C:/Users/Chivijr/source/repos/JuegoSFMLSolucion/Debug/recursos/sprite/SimbaPeque.png"
 #define cEscaladoProtagonista 3
 #define cNumeroSprites 13
-#define cVelocidadAnimacion 0.2f
+#define cVelocidadAnimacion 0.3f
 
 static const struct {
 	unsigned int 	 width;

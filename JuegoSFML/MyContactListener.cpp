@@ -14,12 +14,13 @@ void MyContactListener::BeginContact(b2Contact* contact) {
 	void* bodyUserData = contact->GetFixtureA()->GetBody()->GetUserData();
 	//check if fixture A was a ball
 	if (bodyUserData) {
-		if (static_cast<b2Body*>(bodyUserData)->GetType() == b2_staticBody)
+		if (static_cast<b2Body*>(bodyUserData)->GetType() == b2_staticBody) {
 			std::cout << "Suelo" << std::endl;
-		else {
+		} else {
 			switch (static_cast<Personaje*>(bodyUserData)->getEntityType()) {
 			case PERSONAJE:
 				static_cast<Personaje*>(bodyUserData)->startContact();
+				static_cast<Personaje*>(bodyUserData)->removeSaltando();
 				break;
 			default:
 				break;

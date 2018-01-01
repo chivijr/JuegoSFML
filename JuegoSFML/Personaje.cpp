@@ -117,6 +117,7 @@ void Personaje::calcularNuevaPosicion()
 	if (m_contacting > 0) {
 
 	}
+	std::cout << "GetLinearVelocity: " << Body->GetLinearVelocity().x << " " << Body->GetLinearVelocity().y << std::endl;
 	mover(2 * Body->GetPosition().x, 2 * Body->GetPosition().y);
 }
 
@@ -137,9 +138,10 @@ void Personaje::setFisicaSprite(b2World& localWorld) {
 void Personaje::saltar() {
 	if (!isSaltando()) {
 		setSaltando();
+		float velocityChange = cAceleracionSalto - this->momentum.y;
+		b2Vec2 impulse(0, Body->GetMass() * -velocityChange);
+		Body->ApplyLinearImpulse(impulse, Body->GetWorldCenter(), true);
 	}
-	b2Vec2 pos = Body->GetPosition();
-	this->Body->ApplyLinearImpulse(b2Vec2(50, 50), Body->GetPosition(), true);
 }
 
 void Personaje::mover(int nuevax, int nuevay) {
@@ -226,7 +228,7 @@ void Personaje::setMoverArriba() { moverArriba = true; }
 void Personaje::setMoverAbajo() { moverAbajo = true; }
 void Personaje::setMoverDerecha() {	moverDerecha = true; }
 void Personaje::setMoverIzquierda() { moverIzquierda = true; }
-void Personaje::setSaltando() {	saltando = true; }
+void Personaje::setSaltando() {	saltando = true;  }
 void Personaje::incCurrentSprite() { this->currentSprite++; }
 void Personaje::removeMoverArriba() { moverArriba = false; }
 void Personaje::removeMoverAbajo() { moverAbajo = false; }
