@@ -33,11 +33,19 @@
 //#define cVelocidadAnimacion 0.1f
 
 // Constantes de EarthWormJim como Protagonista
-#define cAltoProtagonista 64
-#define cAnchoProtagonista 52
-#define rutaProtagonista "C:/Users/Chivijr/source/repos/JuegoSFMLSolucion/Debug/recursos/sprite/earthwormjim.png"
+//#define cAltoProtagonista 64
+//#define cAnchoProtagonista 52
+//#define rutaProtagonista "C:/Users/Chivijr/source/repos/JuegoSFMLSolucion/Debug/recursos/sprite/earthwormjim.png"
+//#define cEscaladoProtagonista 3
+//#define cNumeroSprites 9
+//#define cVelocidadAnimacion 0.2f
+
+// Constantes de Simba como Protagonista
+#define cAltoProtagonista 35
+#define cAnchoProtagonista 64
+#define rutaProtagonista "C:/Users/Chivijr/source/repos/JuegoSFMLSolucion/Debug/recursos/sprite/SimbaPeque.png"
 #define cEscaladoProtagonista 3
-#define cNumeroSprites 9
+#define cNumeroSprites 13
 #define cVelocidadAnimacion 0.2f
 
 static const struct {
