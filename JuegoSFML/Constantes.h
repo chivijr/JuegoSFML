@@ -3,17 +3,17 @@
 #define altoPantalla 600.f
 #define anchoPantalla altoPantalla*1.33f
 #define tituloPantalla "Juego"
-#define rutaProfesor "C:/Users/Chivijr/source/repos/JuegoSFMLSolucion/Debug/recursos/sprite/maestro/idle01.png"
-#define rutaFondo2 "C:/Users/Chivijr/source/repos/JuegoSFMLSolucion/Debug/recursos/bg/suelo.psd"
+#define cRutaProfesor "C:/Users/Chivijr/source/repos/JuegoSFMLSolucion/Debug/recursos/sprite/maestro/idle01.png"
+//#define cRutaFondo "C:/Users/Chivijr/source/repos/JuegoSFMLSolucion/Debug/recursos/bg/suelo.psd"
 #define SUELO 2
 #define PERSONAJE 1
 
 // Variables Box2D
-#define cGravity 9.8f
+#define cGravity 50.0f
 
 // Constantes Comunes del protagonista
 #define cAceleracion 75.0f
-#define cAceleracionSalto 20.f
+#define cAceleracionSalto 60.f
 #define cDeceleracion 50.0f
 #define cMaximaVelocidad 100
 
@@ -25,7 +25,7 @@
 //#define cNumeroSprites 6
 //#define cVelocidadAnimacion 0.1f
 
-// Constantes de Mario como Protagonista
+//// Constantes de Mario como Protagonista
 //#define cAltoProtagonista 16
 //#define cAnchoProtagonista 16
 //#define rutaProtagonista "C:/Users/Chivijr/source/repos/JuegoSFMLSolucion/Debug/recursos/sprite/mario.png"
@@ -42,12 +42,14 @@
 //#define cVelocidadAnimacion 0.2f
 
 // Constantes de Simba como Protagonista
-#define cAltoProtagonista 35
+#define cAltoProtagonista 38
 #define cAnchoProtagonista 64
 #define rutaProtagonista "C:/Users/Chivijr/source/repos/JuegoSFMLSolucion/Debug/recursos/sprite/SimbaPeque.png"
-#define cEscaladoProtagonista 3
+#define cEscaladoProtagonista 1
 #define cNumeroSprites 13
 #define cVelocidadAnimacion 0.3f
+#define cRutaFondo "C:/Users/Chivijr/source/repos/JuegoSFMLSolucion/Debug/recursos/bg/fondoreyleon.png"
+#define cRutaFondoLejano "C:/Users/Chivijr/source/repos/JuegoSFMLSolucion/Debug/recursos/bg/FondoLejanoReyLeon.png"
 
 static const struct {
 	unsigned int 	 width;

@@ -6,13 +6,13 @@ Fondo::Fondo(std::string Nombre)
 {
 	setTextura(Nombre);
 	setSprite(texture);
-	fitWindow();
+	//fitWindow();
 }
 
 Fondo::Fondo(std::string Nombre, float alto, float ancho)
 {
 	setTextura(Nombre);
-	texture.setRepeated(true);
+	//texture.setRepeated(true);
 	setSprite(texture);
 	escalarAbsoluto(alto,ancho);
 }

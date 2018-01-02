@@ -88,26 +88,32 @@ void Personaje::calcularNuevaPosicion()
 		float velocityChange = desiredVelocity - momentum.x;
 		b2Vec2 impulse(Body->GetMass() * velocityChange, 0);
 		Body->ApplyLinearImpulse(impulse, Body->GetWorldCenter(), true);
+		sprite.setTextureRect(sf::IntRect(0, 0, cAnchoProtagonista, cAltoProtagonista));
 	} else if (isMoviendoDerecha()) {
+		sprite.setTextureRect(sf::IntRect(0, 0, cAnchoProtagonista, cAltoProtagonista));
 		unflip();
 		this->currentSprite++;
 		if (currentSprite > cNumeroSprites / cVelocidadAnimacion -1) currentSprite = 0;
 		int entero = (int)currentSprite * cVelocidadAnimacion;
-		sprite.setTextureRect(sf::IntRect(cAnchoProtagonista * entero, 0, cAnchoProtagonista, cAltoProtagonista));
+		sprite.setTextureRect(sf::IntRect(cAnchoProtagonista+(cAnchoProtagonista * entero), 0, cAnchoProtagonista, cAltoProtagonista));
 		desiredVelocity = aceleracion;
 		float velocityChange = desiredVelocity - momentum.x;
 		b2Vec2 impulse(Body->GetMass() * velocityChange,0);
 		Body->ApplyLinearImpulse(impulse, Body->GetWorldCenter(), true);
+		setX(Body->GetPosition().x);
+		setY(Body->GetPosition().y);
 	} else if  (isMoviendoIzquierda()) {
 		flip();
 		this->currentSprite++;
 		if (currentSprite > cNumeroSprites / cVelocidadAnimacion -1) currentSprite = 0;
 		int entero = (int)currentSprite * cVelocidadAnimacion;
-		sprite.setTextureRect(sf::IntRect(cAnchoProtagonista * entero, 0, cAnchoProtagonista, cAltoProtagonista));
+		sprite.setTextureRect(sf::IntRect(cAnchoProtagonista+(cAnchoProtagonista * entero), 0, cAnchoProtagonista, cAltoProtagonista));
 		desiredVelocity = -aceleracion;
 		float velocityChange = desiredVelocity - momentum.x;
 		b2Vec2 impulse(Body->GetMass() * velocityChange, 0);
 		Body->ApplyLinearImpulse(impulse, Body->GetWorldCenter(), true);
+		setX(Body->GetPosition().x);
+		setY(Body->GetPosition().y);
 	} 
 
 	/*if (isSaltando()) {
@@ -117,7 +123,7 @@ void Personaje::calcularNuevaPosicion()
 	if (m_contacting > 0) {
 
 	}
-	std::cout << "GetLinearVelocity: " << Body->GetLinearVelocity().x << " " << Body->GetLinearVelocity().y << std::endl;
+	//std::cout << "GetLinearVelocity: " << Body->GetLinearVelocity().x << " " << Body->GetLinearVelocity().y << std::endl;
 	mover(2 * Body->GetPosition().x, 2 * Body->GetPosition().y);
 }
 
